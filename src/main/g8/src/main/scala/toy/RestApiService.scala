@@ -4,14 +4,13 @@ import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.pattern.ask
 import akka.util.Timeout
-import search.protocol._
-import search.server.support.JsonSupport._
-import search.server.support.TextTokenizer._
+import toy.protocol._
+import toy.support.JsonSupport._
 
 /**
   * Rest service with endpoints.
   **/
-class RestApiService()(implicit val timeout: Timeout, val blockingExecutor: MessageDispatcher) {
+class RestApiService(documentStorage : ActorRef)(implicit val timeout: Timeout, val blockingExecutor: MessageDispatcher) {
 
   val mainRoute: Route = getHello
 
@@ -20,7 +19,7 @@ class RestApiService()(implicit val timeout: Timeout, val blockingExecutor: Mess
     id =>
       get {
         complete {
-          s"Hello \$id"
+          (documentStorage ? id).mapTo[EmptyDocument]
         }
       }
   }

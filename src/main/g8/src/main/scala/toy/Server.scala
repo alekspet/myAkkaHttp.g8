@@ -11,6 +11,8 @@ import akka.util.Timeout
 import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
 
+import toy.service.DocumentStorage
+
 /**
   * Server runner on Akka-HTTP.
   */
@@ -23,7 +25,8 @@ object Server {
 
   def main(args: Array[String]): Unit = {
 
-    val restApiService = new RestApiService()
+    val documentStorage : ActorRef = system.actorOf(DocumentStorage.props())
+    val restApiService = new RestApiService(documentStorage)
 
     val serverEndpoint: Future[ServerBinding] = Http().bindAndHandle(
       route2HandlerFlow(restApiService.mainRoute),
