@@ -1,3 +1,5 @@
+package toy
+
 import akka.actor.ActorRef
 import akka.dispatch.MessageDispatcher
 import akka.http.scaladsl.server.Directives._

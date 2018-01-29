@@ -1,3 +1,5 @@
+package toy
+
 import akka.actor.ActorRef
 import akka.dispatch.MessageDispatcher
 import akka.http.scaladsl.model.HttpEntity
@@ -16,7 +18,7 @@ class RestApiServiceSpec extends WordSpec with Matchers with ScalatestRouteTest 
   private val documentStorage : ActorRef = system.actorOf(DocumentStorage.props())
   private val restService = new RestApiService(documentStorage)
 
-  private val route = searchService.mainRoute
+  private val route = restService.mainRoute
 
   "The RestApiService" should {
 
