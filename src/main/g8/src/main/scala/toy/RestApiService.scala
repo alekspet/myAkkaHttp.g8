@@ -20,7 +20,7 @@ class RestApiService()(implicit val timeout: Timeout, val blockingExecutor: Mess
     id =>
       get {
         complete {
-          s"Hello $id"
+          s"Hello \$id"
         }
       }
   }
